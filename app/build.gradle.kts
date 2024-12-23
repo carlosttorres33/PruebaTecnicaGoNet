@@ -90,4 +90,7 @@ dependencies {
     //Constraint
     implementation (libs.androidx.constraintlayout.compose)
 
+    //ExtendedIcons
+    implementation(libs.androidx.material.icons.extended)
+
 }
