@@ -1,5 +1,8 @@
 package com.carlostorres.pruebatecnicagonet.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -18,11 +21,16 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.dp
+import com.carlostorres.pruebatecnicagonet.ui.theme.AppBg
+import com.carlostorres.pruebatecnicagonet.ui.theme.BgBlue
+import com.carlostorres.pruebatecnicagonet.ui.theme.BgPurple
 
 @Composable
 fun PasswordTextField(
@@ -113,6 +121,6 @@ fun DefaultTextField(
                 }
             }
         },
-        visualTransformation = if (isPassword && hidePassword) PasswordVisualTransformation() else VisualTransformation.None
+        visualTransformation = if (isPassword && hidePassword) PasswordVisualTransformation() else VisualTransformation.None,
     )
 }

@@ -21,6 +21,7 @@ import com.carlostorres.pruebatecnicagonet.ui.components.DefaultButton
 @Composable
 fun ErrorDialog(
     message: String,
+    textButton: String = "Accept",
     onDismiss: () -> Unit,
 ) {
 
@@ -52,7 +53,8 @@ fun ErrorDialog(
                 )
 
                 DefaultButton(
-                    buttonText = "Accept",
+                    modifier = Modifier.fillMaxWidth(),
+                    buttonText = textButton,
                     onClick = { onDismiss() }
                 )
 
