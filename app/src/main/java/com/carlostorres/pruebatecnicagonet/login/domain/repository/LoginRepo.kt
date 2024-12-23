@@ -5,7 +5,11 @@ import com.carlostorres.pruebatecnicagonet.login.data.remote.model.LoginResponse
 import retrofit2.Response
 
 interface LoginRepo {
-    suspend fun login(
-        loginRequest: LoginRequest
-    ) : Response<LoginResponse>
+
+    suspend fun login(loginRequest: LoginRequest) : Response<LoginResponse>
+
+    fun saveLogin(loginResponse: LoginResponse)
+
+    fun getLogin() : LoginResponse?
+
 }

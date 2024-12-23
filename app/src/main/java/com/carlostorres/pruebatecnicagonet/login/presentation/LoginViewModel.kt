@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlostorres.pruebatecnicagonet.R
 import com.carlostorres.pruebatecnicagonet.login.data.remote.model.LoginResponse
+import com.carlostorres.pruebatecnicagonet.login.domain.usecases.LoginScreenUseCases
 import com.carlostorres.pruebatecnicagonet.login.domain.usecases.LoginUseCase
 import com.carlostorres.pruebatecnicagonet.utils.ViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -18,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val loginUseCase: LoginUseCase
+    private val useCases: LoginScreenUseCases
 ) : ViewModel() {
 
     var state by mutableStateOf(LoginState())
@@ -31,14 +32,14 @@ class LoginViewModel @Inject constructor(
             )
 
             try {
-
-                val response = loginUseCase(
+                val response = useCases.loginUseCase(
                     username = state.username,
                     email = state.email,
                     password = state.password
                 )
 
                 if (response.isSuccessful){
+                    saveLogin(response.body()!!)
                     state = state.copy(
                         viewState = ViewState.Success(response.body())
                     )
@@ -54,6 +55,12 @@ class LoginViewModel @Inject constructor(
                 )
             }
 
+        }
+    }
+
+    private fun saveLogin(loginResponse: LoginResponse){
+        viewModelScope.launch {
+            useCases.saveLoginUseCase(loginResponse)
         }
     }
 

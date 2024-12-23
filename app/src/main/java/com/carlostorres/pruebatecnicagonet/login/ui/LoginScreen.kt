@@ -20,12 +20,11 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
-import androidx.compose.ui.graphics.ColorMatrix
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -52,6 +51,12 @@ fun LoginScreen(
 ) {
 
     val state = viewModel.state
+
+    LaunchedEffect(key1 = state.viewState){
+        if (state.viewState is ViewState.Success){
+            onLoginSuccess()
+        }
+    }
 
     Scaffold(
         modifier = Modifier
@@ -82,9 +87,6 @@ fun LoginScreen(
                     }
                     ViewState.Loading -> {
                         LoadingDialog()
-                    }
-                    is ViewState.Success -> {
-                        onLoginSuccess()
                     }
                     else -> {}
                 }
