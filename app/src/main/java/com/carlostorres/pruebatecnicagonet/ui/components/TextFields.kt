@@ -39,7 +39,7 @@ fun PasswordTextField(
     onValueChange: (String) -> Unit,
     labelText: String,
     icon: ImageVector = Icons.Default.Lock,
-    keyboardType: KeyboardType = KeyboardType.Password,
+    keyboardOptions: KeyboardOptions,
     enabled: Boolean = true,
     keyboardActions: KeyboardActions = KeyboardActions(),
 ) {
@@ -50,7 +50,7 @@ fun PasswordTextField(
         onValueChange = {onValueChange(it)},
         labelText = labelText ,
         icon = icon,
-        keyboardType = keyboardType,
+        keyboardOptions = keyboardOptions,
         enabled = enabled,
         keyboardActions = keyboardActions,
         isPassword = true
@@ -65,10 +65,10 @@ fun DefaultTextField(
     onValueChange: (String) -> Unit,
     labelText: String,
     icon: ImageVector? = null,
-    keyboardType: KeyboardType = KeyboardType.Text,
     enabled: Boolean = true,
     keyboardActions: KeyboardActions = KeyboardActions(),
-    isPassword: Boolean = false
+    isPassword: Boolean = false,
+    keyboardOptions: KeyboardOptions = KeyboardOptions(),
 ) {
 
     var hidePassword by remember {
@@ -103,9 +103,7 @@ fun DefaultTextField(
         maxLines = 1,
         singleLine = true,
         keyboardActions = keyboardActions,
-        keyboardOptions = KeyboardOptions(
-            keyboardType = keyboardType
-        ),
+        keyboardOptions = keyboardOptions,
         enabled = enabled,
         trailingIcon = {
             if (isPassword) {

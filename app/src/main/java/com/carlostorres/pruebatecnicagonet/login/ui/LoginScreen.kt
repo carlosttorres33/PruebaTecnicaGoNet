@@ -1,19 +1,17 @@
 package com.carlostorres.pruebatecnicagonet.login.ui
 
 import androidx.compose.animation.AnimatedContent
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Email
 import androidx.compose.material.icons.outlined.Person
@@ -24,23 +22,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.blur
-import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.asImageBitmap
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
 import androidx.hilt.navigation.compose.hiltViewModel
-import coil.compose.AsyncImage
-import com.carlostorres.pruebatecnicagonet.R
 import com.carlostorres.pruebatecnicagonet.login.presentation.LoginEvents
 import com.carlostorres.pruebatecnicagonet.login.presentation.LoginViewModel
 import com.carlostorres.pruebatecnicagonet.ui.components.DefaultButton
@@ -49,10 +42,8 @@ import com.carlostorres.pruebatecnicagonet.ui.components.PasswordTextField
 import com.carlostorres.pruebatecnicagonet.ui.components.dialogs.ErrorDialog
 import com.carlostorres.pruebatecnicagonet.ui.components.dialogs.LoadingDialog
 import com.carlostorres.pruebatecnicagonet.ui.theme.AppBg
-import com.carlostorres.pruebatecnicagonet.ui.theme.BgBlue
 import com.carlostorres.pruebatecnicagonet.ui.theme.BgPurple
 import com.carlostorres.pruebatecnicagonet.utils.ViewState
-import com.carlostorres.pruebatecnicagonet.utils.decodeSampledBitmapFromResource
 
 @Composable
 fun LoginScreen(
@@ -60,7 +51,7 @@ fun LoginScreen(
     onLoginSuccess: () -> Unit
 ) {
 
-    val context = LocalContext.current
+    val focusManager = LocalFocusManager.current
     val state = viewModel.state
 
     LaunchedEffect(key1 = state.viewState) {
@@ -175,7 +166,17 @@ fun LoginScreen(
                             viewModel.onEvent(LoginEvents.UsernameChanged(it))
                         },
                         icon = Icons.Outlined.Person,
-                        labelText = "Username"
+                        labelText = "Username",
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Text,
+                            autoCorrectEnabled = false,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onAny = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            }
+                        )
                     )
 
                     DefaultTextField(
@@ -186,7 +187,17 @@ fun LoginScreen(
                         onValueChange = {
                             viewModel.onEvent(LoginEvents.EmailChanged(it))
                         },
-                        labelText = "Email"
+                        labelText = "Email",
+                        keyboardOptions = KeyboardOptions(
+                            autoCorrectEnabled = false,
+                            keyboardType = KeyboardType.Email,
+                            imeAction = ImeAction.Next
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onAny = {
+                                focusManager.moveFocus(FocusDirection.Next)
+                            }
+                        )
                     )
 
                     PasswordTextField(
@@ -196,7 +207,20 @@ fun LoginScreen(
                         onValueChange = {
                             viewModel.onEvent(LoginEvents.PasswordChanged(it))
                         },
-                        labelText = "Password"
+                        labelText = "Password",
+                        keyboardOptions = KeyboardOptions(
+                            keyboardType = KeyboardType.Password,
+                            autoCorrectEnabled = false,
+                            imeAction = ImeAction.Done
+                        ),
+                        keyboardActions = KeyboardActions(
+                            onAny = {
+                                focusManager.clearFocus()
+                                if (state.username.isNotEmpty() && state.email.isNotEmpty() && state.password.isNotEmpty()) {
+                                    viewModel.onEvent(LoginEvents.Login)
+                                }
+                            }
+                        )
                     )
 
                     DefaultButton(
