@@ -12,6 +12,7 @@ activityCompose = "1.9.0"
 composeBom = "2024.06.00"
 navigationCompose = "2.8.2"
 kotlinxSerialization = "1.6.3"
+kotlinParcelize = "1.8.10"
 dagger = "2.46.1"
 hiltNavigationCompose = "1.0.0"
 retrofit = "2.9.0"
@@ -45,4 +46,6 @@ androidx-constraintlayout-compose = { module = "androidx.constraintlayout:constr
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 dagger-hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "dagger" }
+jetbrainsKotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize",  version.ref = "kotlinParcelize"  }
 
