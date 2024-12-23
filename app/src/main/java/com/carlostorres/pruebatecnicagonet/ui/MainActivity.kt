@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.carlostorres.pruebatecnicagonet.ui.navigation.NavigationManager
 import com.carlostorres.pruebatecnicagonet.ui.theme.PruebaTecnicaGonetTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -21,29 +22,8 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             PruebaTecnicaGonetTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Carlos",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                NavigationManager(isLogged = false)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    PruebaTecnicaGonetTheme {
-        Greeting("Android")
     }
 }
