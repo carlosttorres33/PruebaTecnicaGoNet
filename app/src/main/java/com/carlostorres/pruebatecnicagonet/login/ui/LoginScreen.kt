@@ -166,27 +166,6 @@ fun LoginScreen(
                     DefaultTextField(
                         modifier = Modifier
                             .fillMaxWidth(),
-                        value = state.username,
-                        onValueChange = {
-                            viewModel.onEvent(LoginEvents.UsernameChanged(it))
-                        },
-                        icon = Icons.Outlined.Person,
-                        labelText = "Username",
-                        keyboardOptions = KeyboardOptions(
-                            keyboardType = KeyboardType.Text,
-                            autoCorrectEnabled = false,
-                            imeAction = ImeAction.Next
-                        ),
-                        keyboardActions = KeyboardActions(
-                            onAny = {
-                                focusManager.moveFocus(FocusDirection.Next)
-                            }
-                        )
-                    )
-
-                    DefaultTextField(
-                        modifier = Modifier
-                            .fillMaxWidth(),
                         value = state.email,
                         icon = Icons.Outlined.Email,
                         onValueChange = {
@@ -221,7 +200,7 @@ fun LoginScreen(
                         keyboardActions = KeyboardActions(
                             onAny = {
                                 focusManager.clearFocus()
-                                if (state.username.isNotEmpty() && state.email.isNotEmpty() && state.password.isNotEmpty()) {
+                                if (state.email.isNotEmpty() && state.password.isNotEmpty()) {
                                     viewModel.onEvent(LoginEvents.Login)
                                 }
                             }
@@ -232,7 +211,7 @@ fun LoginScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(50.dp),
-                        enabled = (state.username.isNotEmpty() && state.email.isNotEmpty() && state.password.isNotEmpty()),
+                        enabled = (state.email.isNotEmpty() && state.password.isNotEmpty()),
                         buttonText = "LOGIN",
                         onClick = {
                             viewModel.onEvent(LoginEvents.Login)

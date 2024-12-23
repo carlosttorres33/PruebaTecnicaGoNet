@@ -33,7 +33,7 @@ class LoginViewModel @Inject constructor(
 
             try {
                 val response = useCases.loginUseCase(
-                    username = state.username,
+                    username = "user",
                     email = state.email,
                     password = state.password
                 )
@@ -66,9 +66,6 @@ class LoginViewModel @Inject constructor(
 
     fun onEvent(event: LoginEvents){
         when(event){
-            is LoginEvents.UsernameChanged -> {
-                state = state.copy(username = event.username)
-            }
             is LoginEvents.EmailChanged -> {
                 state = state.copy(email = event.email)
             }

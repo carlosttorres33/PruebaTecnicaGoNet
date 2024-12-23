@@ -5,7 +5,6 @@ import com.carlostorres.pruebatecnicagonet.utils.ViewState
 
 data class LoginState(
     val viewState : ViewState<LoginResponse> = ViewState.IDLE,
-    val username: String = "",
     val email: String = "",
     val password: String = "",
 )
