@@ -85,8 +85,11 @@ fun DefaultTextField(
         },
         colors = TextFieldDefaults.colors(
             focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black,
             focusedContainerColor = Color.Transparent,
+            focusedIndicatorColor = Color.Black,
+            focusedLabelColor = Color.Black,
+            unfocusedLabelColor = Color.Black,
+            unfocusedTextColor = Color.Black,
             unfocusedContainerColor = Color.Transparent,
         ),
         maxLines = 1,

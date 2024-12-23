@@ -1,9 +1,12 @@
 package com.carlostorres.pruebatecnicagonet.login.ui
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +22,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.blur
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.ColorMatrix
@@ -26,7 +30,6 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -38,17 +41,22 @@ import com.carlostorres.pruebatecnicagonet.login.presentation.LoginViewModel
 import com.carlostorres.pruebatecnicagonet.ui.components.DefaultButton
 import com.carlostorres.pruebatecnicagonet.ui.components.DefaultTextField
 import com.carlostorres.pruebatecnicagonet.ui.components.PasswordTextField
+import com.carlostorres.pruebatecnicagonet.ui.components.dialogs.ErrorDialog
+import com.carlostorres.pruebatecnicagonet.ui.components.dialogs.LoadingDialog
+import com.carlostorres.pruebatecnicagonet.utils.ViewState
 
 @Composable
 fun LoginScreen(
-    viewModel: LoginViewModel = hiltViewModel()
+    viewModel: LoginViewModel = hiltViewModel(),
+    onLoginSuccess: () -> Unit
 ) {
 
     val state = viewModel.state
 
     Scaffold(
         modifier = Modifier
-            .fillMaxSize()
+            .fillMaxSize(),
+        containerColor = Color.White
     ) { padding ->
         
         ConstraintLayout(
@@ -59,10 +67,28 @@ fun LoginScreen(
 
             val (
                 bgImage,
+                bgCover,
                 loginForm
             ) = createRefs()
 
             val horizontalGuideLine = createGuidelineFromTop(0.75f)
+
+            AnimatedContent(targetState = state.viewState, label = "") { dialog ->
+                when(dialog){
+                    is ViewState.Error -> {
+                        ErrorDialog(message = dialog.message) {
+                            viewModel.updateViewState(ViewState.IDLE)
+                        }
+                    }
+                    ViewState.Loading -> {
+                        LoadingDialog()
+                    }
+                    is ViewState.Success -> {
+                        onLoginSuccess()
+                    }
+                    else -> {}
+                }
+            }
 
             Image(
                 modifier = Modifier
@@ -75,12 +101,27 @@ fun LoginScreen(
                     .blur(10.dp),
                 painter = painterResource(id = R.drawable.ic_launcher_foreground),
                 contentDescription = "",
-                contentScale = ContentScale.Crop,
-                colorFilter = ColorFilter.colorMatrix(
-                    ColorMatrix().apply {
-                        setToScale(0.5f, 0.5f, 0.5f, 1f)
+                contentScale = ContentScale.Crop
+            )
+
+            Spacer(
+                modifier = Modifier
+                    .constrainAs(bgCover) {
+                        top.linkTo(parent.top)
+                        bottom.linkTo(horizontalGuideLine)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                        width = Dimension.fillToConstraints
+                        height = Dimension.fillToConstraints
                     }
-                )
+                    .background(
+                        Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                Color.Black,
+                            )
+                        )
+                    )
             )
 
             Card(
@@ -99,7 +140,12 @@ fun LoginScreen(
                 ),
                 border = BorderStroke(
                     1.dp,
-                    Color.Black
+                    Brush.verticalGradient(
+                        colors = listOf(
+                            Color.Black,
+                            Color.Transparent,
+                        )
+                    )
                 )
             ) {
                 Column (
@@ -168,10 +214,4 @@ fun LoginScreen(
         }
 
     }
-}
-
-@Preview
-@Composable
-private fun LoginScreenPreview() {
-    LoginScreen()
 }

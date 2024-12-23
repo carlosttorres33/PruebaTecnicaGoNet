@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PruebaTecnicaGonet</string>
+    <string name="login_error_message">No se puede iniciar sesion</string>
 </resources>
