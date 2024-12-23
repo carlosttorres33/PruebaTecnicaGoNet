@@ -3,7 +3,7 @@ package com.carlostorres.pruebatecnicagonet.main
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.carlostorres.pruebatecnicagonet.login.data.remote.model.LoginResponse
-import com.carlostorres.pruebatecnicagonet.login.domain.usecases.GetLoginUseCase
+import com.carlostorres.pruebatecnicagonet.home.domain.usecases.GetLoginUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

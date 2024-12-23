@@ -14,7 +14,7 @@ import com.carlostorres.pruebatecnicagonet.login.data.remote.LoginService
 import com.carlostorres.pruebatecnicagonet.login.data.remote.RemoteLoginDataSource
 import com.carlostorres.pruebatecnicagonet.login.data.remote.repository.LoginRepoImpl
 import com.carlostorres.pruebatecnicagonet.login.domain.repository.LoginRepo
-import com.carlostorres.pruebatecnicagonet.login.domain.usecases.GetLoginUseCase
+import com.carlostorres.pruebatecnicagonet.home.domain.usecases.GetLoginUseCase
 import com.carlostorres.pruebatecnicagonet.login.domain.usecases.LoginScreenUseCases
 import com.carlostorres.pruebatecnicagonet.login.domain.usecases.LoginUseCase
 import com.carlostorres.pruebatecnicagonet.login.domain.usecases.SaveLoginUseCase
