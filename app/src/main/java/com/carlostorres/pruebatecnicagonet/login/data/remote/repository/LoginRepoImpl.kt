@@ -28,4 +28,8 @@ class LoginRepoImpl (
         return json?.let { gson.fromJson(it, LoginResponse::class.java) }
     }
 
+    override fun clearLogin() {
+        sharedPreferences.edit().remove("LOGIN_RESPONSE").apply()
+    }
+
 }

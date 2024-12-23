@@ -12,4 +12,6 @@ interface LoginRepo {
 
     fun getLogin() : LoginResponse?
 
+    fun clearLogin()
+
 }

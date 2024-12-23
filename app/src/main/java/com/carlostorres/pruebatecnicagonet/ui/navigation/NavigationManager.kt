@@ -43,7 +43,12 @@ fun NavigationManager(
         }
 
         composable<Home> {
-            HomeScreen()
+            HomeScreen(
+                onLogout = {
+                    navController.popBackStack()
+                    navController.navigate(Login)
+                }
+            )
         }
 
     }
