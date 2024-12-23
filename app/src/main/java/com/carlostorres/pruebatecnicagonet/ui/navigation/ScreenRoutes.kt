@@ -10,5 +10,3 @@ object Login
 
 @Serializable
 object Home
-
-

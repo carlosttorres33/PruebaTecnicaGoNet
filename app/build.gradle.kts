@@ -74,6 +74,7 @@ dependencies {
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.converter.moshi)
+    implementation (libs.gson)
 
     //Navigation
     implementation(libs.androidx.navigation.compose)
@@ -89,5 +90,9 @@ dependencies {
 
     //Constraint
     implementation (libs.androidx.constraintlayout.compose)
+
+    //ExtendedIcons
+    implementation(libs.androidx.material.icons.extended)
+
 
 }
